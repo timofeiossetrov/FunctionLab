@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>FunctionLab — построение графиков</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+</head>
+<body>
+  <header>
+    <h1>FunctionLab</h1>
+    <p>Интерактивное построение графиков функций</p>
+  </header>
+
+  <main>
+    <form id="plot-form" autocomplete="off">
+      <!-- Контейнер для полей ввода функций -->
+      <div id="functions-container"></div>
+
+      <div class="row">
+        <button type="button" id="add-btn" class="btn-secondary">+ Добавить функцию</button>
+      </div>
+
+      <div class="row grid3">
+        <div>
+          <label for="x_min">X от</label>
+          <input id="x_min" name="x_min" type="number" value="-10" step="any" required>
+        </div>
+        <div>
+          <label for="x_max">X до</label>
+          <input id="x_max" name="x_max" type="number" value="10" step="any" required>
+        </div>
+        <div>
+          <label for="points">Точек</label>
+          <input id="points" name="points" type="number" value="1000" min="10" max="10000" step="10">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Построить</button>
+        
+        <div class="dropdown">
+          <button type="button" class="btn-secondary" id="save-btn" disabled>
+            Сохранить ▼
+          </button>
+          <div class="dropdown-content" id="save-menu">
+            <a href="#" data-format="png">Скачать PNG</a>
+            <a href="#" data-format="html">Скачать HTML</a>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <p id="error" class="error" hidden></p>
+    <div id="plot" class="plot"></div>
+
+    <!-- ================= СПРАВОЧНИК (ТОЛЬКО ДЛЯ ЧТЕНИЯ) ================= -->
+    <section class="cheatsheet">
+      <h2>Справка по вводу функций</h2>
+      <p class="hint">Ниже приведены примеры записи математических операций и функций.</p>
+      <table id="notes-table">
+        <thead>
+          <tr>
+            <th style="width: 40%;">Математическая операция</th>
+            <th style="width: 60%;">Как это записать в приложении</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- 
+            ЧТОБЫ ДОБАВИТЬ НОВУЮ СТРОКУ:
+            Скопируй блок <tr> ... </tr> ниже и вставь его перед </tbody>.
+            Меняй только текст внутри <td>...</td>.
+          -->
+          <tr>
+            <td>sin</td>
+            <td><code>sin(x)</code></td>
+          </tr>
+          <tr>
+            <td>cos</td>
+            <td><code>cos(x)</code></td>
+          </tr>
+          <tr>
+            <td>tan</td>
+            <td><code>tan(x)</code></td>
+          </tr>
+          <tr>
+            <td>cot</td>
+            <td><code>1 / tan(x)</code> или <code>cos(x) / sin(x)</code></td>
+          </tr>
+          <tr>
+            <td>Квадратный корень</td>
+            <td><code>sqrt(x)</code></td>
+          </tr>
+          <tr>
+            <td>Экспонента (e в степени x)</td>
+            <td><code>exp(x)</code></td>
+          </tr>
+          <tr>
+            <td>Натуральный логарифм</td>
+            <td><code>log(x)</code></td>
+          </tr>
+          <tr>
+            <td>Возведение в степень</td>
+            <td><code>x^2</code> или <code>x**2</code></td>
+          </tr>
+          <tr>
+            <td>Умножение</td>
+            <td><code>2*x</code> (или <code>2x</code>)</td>
+          </tr>
+          <tr>
+            <td>Число Пи</td>
+            <td><code>pi</code></td>
+          </tr>
+          <tr>
+            <td>Модуль (абсолютное значение)</td>
+            <td><code>abs(x)</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    <!-- ================================================================= -->
+
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
